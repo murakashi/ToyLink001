@@ -1,0 +1,243 @@
+﻿@charset "UTF-8";
+
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+
+@import url(http://fonts.googleapis.com/earlyaccess/notosansjp.css);
+
+html, body {
+	color: #222222;
+	font-family: "Noto Sans JP", "游ゴシック Medium", "游ゴシック";
+	font-size: large;
+}
+
+h1 {
+	display: inline;
+}
+
+h2 {
+	display: inline;
+}
+
+/*ヘッダー例*/
+#header {
+	text-align: center;
+	position: fixed;
+	top: 0;
+	background-color: #2F4F4F;
+	width: 100%;
+	height: 70px;
+}
+
+/*フッター例*/
+#footer {
+	text-align: center;
+	position: fixed;
+	bottom: 0;
+	background-color: #2F4F4F;
+	width: 100%;
+	height: 55px;
+}
+
+#wrapper {
+	margin: 0 auto;
+	width: 100%; /* 幅をウィンドウサイズに合わせて100％に指定*/
+	max-width: 900px; /* 追加：幅は最大で800pxまで広がるようにする */
+	min-width: 300px; /* 追加：幅は最小で300pxまで狭まるようにする */
+	background: white;
+	/*padding:80px 0 80px;
+	overflow:auto;*/
+	/*border:1px solid black;*/
+}
+
+form, fieldset {
+	/*ボタンを横並びにする*/
+	display: inline;
+	border: none;
+	margin: 0px;
+}
+
+p.example1 {color:red;
+   font-size: 20px;
+   font-weight:bold;
+}
+
+p.example2 {
+   font-size: 20px;
+   font-weight:bold;
+}
+   
+
+#bordernone { /*枠線を表示しない*/
+	border: none;
+}
+
+#border { /*枠線を表示する*/
+	border: 1px #AAAAAA solid;
+	border-collapse: collapse;
+}
+
+.controls {
+	/*メニューボタンの配置*/
+	position: relative;
+	left: 650px;
+}
+
+.ButtonSet {
+	/*売上画面の月間、年間売上ボタンに使用*/
+	position: relative;
+	left: 550px;
+}
+
+.ButtonSet2 {
+	/*月間、年間売上画面の戻るボタンに使用*/
+	position: relative;
+	left: 750px;
+}
+
+/*ボタンデザイン例*/
+button {
+	margin: 3px 3px 3px 3px;
+	padding: 10px 10px 10px 10px;
+	border: none;
+	/*box-sizing:border-box;*/
+	width: 100px;
+	display: inline-block;
+	font-size: 15px;
+	position: relative;
+	cursor: pointer;
+	background: #CCCCCC;
+}
+
+/*button::before,
+button::after {
+   box-sizing:border-box;
+} */
+
+.buttonA {
+	border: 3px solid rgb(119, 136, 153);
+	background-color: rgba(119, 136, 153, 1);
+	color: #fff;
+}
+
+/*ボタンにカーソルを合わせた時の色*/
+.buttonA:hover {
+	border: 3px solid rgb(119, 136, 153);
+	background-color: rgba(119, 136, 153, .0);
+	color: rgba(119, 136, 153, 1.5);
+}
+
+/*テキストフォームデザイン*/
+.text {
+	border: 0;
+	font-size: 1em;
+	font-family: Arial, sans-serif;
+	color: #444444;
+	border: solid 1px #ccc;
+	padding: 0;
+	/*margin:0 0 0px;*/
+	width: 150px;
+	-moz-box-shadow: inset 1px 4px 9px -6px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: inset 1px 4px 9px -6px rgba(0, 0, 0, 0.5);
+	box-shadow: inset 1px 4px 9px -6px rgba(0, 0, 0, 0.5);
+}
+
+/*セレクトボックスデザイン*/
+select {
+	width: 152px;
+	font-size: 0.9em;
+	color: #444444;
+	/*padding: 10px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;*/
+	border: 1px solid #ccc;
+	background: Transparent;
+	-moz-box-shadow: inset 1px 4px 9px -6px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: inset 1px 4px 9px -6px rgba(0, 0, 0, 0.5);
+	box-shadow: inset 1px 4px 9px -6px rgba(0, 0, 0, 0.5);
+}
+
+ul li {
+	list-style: none;
+	label {
+	margin-right : 0px;
+	width: 200px;
+	float: left;
+	}
+}
+
+ul {
+	width: 270px;
+	margin: 0 auto;
+}
+
+.square_btn{
+    display: inline-block;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    width:200px;
+    height:60px;
+    font-weight: 900;
+    font-size: 18px;
+    text-decoration: none;
+    background:#000080;/*ボタン色*/
+    color:#fff;
+    border-bottom: solid 4px #627295;
+    border-radius: 3px;
+}
+
+.square_btn:hover {/*ボタンを押したとき*/
+    -ms-transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);/*下に動く*/
+    border-bottom: none;/*線を消す*/
+}
+
+/*テーブルの行ごとに色を変える*/
+.t-line th:nth-child td { /*奇数行*/
+  background-color: #ECECEC;
+}
+
+.t-line tr:nth-child(odd) td { /*奇数行*/
+  background-color: #fff;  
+}
+
+.t-line tr:nth-child(even) td { /*偶数行*/
+  background-color: #ECECEC;  
+}  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.mybox{
+    background-color: #7fffd4;
+    border-radius: 5px;
+    padding: 20px;
+    position: relative;
+    z-index: 0;
+}
+.mybox:before{
+    border-radius: 5px;
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: 4px;
+    z-index: -1;
+}

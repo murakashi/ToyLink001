@@ -1,0 +1,132 @@
+<%@page import="bean.CategoryBean"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="styles.css">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+<title>売上一覧</title>
+<script>
+	$(function() {
+		var page = 0;
+		function draw() {
+			$('#page').html(page + 1);
+			$('tr').hide();
+			$('tr:first,tr:gt(' + page * 10 + '):lt(10)').show();
+		}
+		$('#prev').click(function() {
+			if (page > 0) {
+				page--;
+				draw();
+			}
+		});
+		$('#next').click(function() {
+			if (page < ($('tr').size() - 1) / 10 - 1) {
+				page++;
+				draw();
+			}
+		});
+		draw();
+	});
+</script>
+<style>
+#prev, #next {
+	color: #191970;
+	cursor: pointer;
+}
+</style>
+
+</head>
+<body>
+	<div id="wrapper">
+		<br>
+		<div class="controls">
+			<form action="Menu" method="post">
+				<button class="buttonA" type="submit">メニュー</button>
+			</form>
+		</div>
+		<center>
+			<h1>売上一覧</h1>
+			<br> <br>
+			<h2>検索条件</h2>
+		</center>
+		<br>
+		<form action="UriageSearch" method="post">
+
+			<%
+ArrayList<CategoryBean> categorylist = (ArrayList<CategoryBean>)session.getAttribute("categorylist");
+
+%>
+
+
+
+		<ul>
+			<li><label>商品名&emsp;：</label> <input type="text" class="text"
+				name="syouhinName"></li>
+				<li><label>カテゴリ：</label>
+				<select name="category">
+				<option selected="selected" value=""></option>
+				<% for(int i=0;i<categorylist.size();i++){ %>
+				<option value="<%= categorylist.get(i).getCategoryid() %>"><%= categorylist.get(i).getC_name() %></option>
+				<% } %>
+			</select></li>
+			</ul>
+			 <br>
+			<center>
+				<button class="buttonA" type="submit" name="bname">検索</button>
+			</center>
+
+		</form>
+
+		<center>
+			<br> <span id="prev">前へ</span> <span id="page"></span> <span
+				id="next">次へ</span>
+
+			<table id="border" width="800px">
+
+				<tr id="border">
+					<th id="border" width = "150px">日時</th>
+					<th id="border" width = "310px">商品名</th>
+					<th id="border" width = "100px">売上数</th>
+					<th id="border">売上金額</th>
+				</tr>
+
+				<%
+				ArrayList<String[]> sel = (ArrayList<String[]>)session.getAttribute("URIAGE");
+				for(int i=0;i < sel.size();i++){
+					int s =Integer.parseInt(sel.get(i)[2]);
+					int t =Integer.parseInt(sel.get(i)[3]);
+				%>
+
+				<tr id="border">
+					<td id="border"><center><%=sel.get(i)[0]%></center></td>
+					<td id="border"><%=sel.get(i)[1]%></td>
+					<td id="border"><div align = "right"><%=sel.get(i)[2]%></div></td>
+					<td id="border"><div align = "right"><%=s*t%></div></td>
+					<%
+						}
+					%>
+				</tr>
+			</table>
+		</center>
+		<br>
+		<div class="ButtonSet">
+			<form action="UriageYear" method="post">
+				<fieldset>
+					<button class="buttonA" type="submit">年間売上</button>
+				</fieldset>
+			</form>
+			<form action="UriageMonth" method="post">
+				<fieldset>
+					<button class="buttonA" type="submit" name="bname" value="月間">月間売上</button>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>
