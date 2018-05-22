@@ -23,7 +23,8 @@
 <form action="OrderFinish" method="Post">
 <fieldset><p><button class="buttonA" value="はい">はい</button><br></p></fieldset>
 </form>
-<form action="OrderError" method="Post">
+
+<form action="OrderBack" method="Post">
 <fieldset><p><button class="buttonA" value="いいえ">いいえ</button><br></p></fieldset>
 </form>
 

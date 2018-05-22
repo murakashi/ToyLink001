@@ -20,7 +20,7 @@ function nyukin(oid){
 
 	if (!isDate(setDate.value,"/")){
 		if (!isDate(setDate.value,"-")){
-			alert("日付エラー");
+			alert("入金日を入力してください");
 			return false;
 		}
 	}
@@ -76,8 +76,8 @@ function isDate (str, delim) {
 					<td id="border"><div align="right"><%=order.getKingaku()%></div></td>
 					<td id="border">
 						<center>
-							<input type="text" class="text" width="400px" name="pay_date_tmp"
-								id="pay_date<%=order.getO_id()%>">
+							<input type="date" class="text" width="400px" name="pay_date_tmp"
+								id="pay_date<%=order.getO_id()%>" required>
 						</center>
 					</td>
 

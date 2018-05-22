@@ -13,7 +13,11 @@
 <body>
 
 <% ArrayList<SyouhinBean> syohin = (ArrayList<SyouhinBean>)session.getAttribute("syohin");
-ArrayList<SiireBean> siire_list = (ArrayList<SiireBean>)session.getAttribute("siire_list");
+   ArrayList<SiireBean> siire_list = (ArrayList<SiireBean>)session.getAttribute("siire_list");
+
+   String siire = (String)session.getAttribute("siire_id");
+   String[] count_arr = (String[])session.getAttribute("count_arr");
+
 %>
 
 <center>
@@ -22,13 +26,27 @@ ArrayList<SiireBean> siire_list = (ArrayList<SiireBean>)session.getAttribute("si
 <form action="OrderSum" method="Post">
 
 仕入先
-<select name="siire_id">
-	<option value="未選択">未選択</option>
+<select name="siire_id" required>
+	<option value="">未選択</option>
 <%
-	for(SiireBean siire : siire_list){
+	if(siire == null){
+		for(SiireBean s : siire_list){
 %>
-	<option value="<%= siire.getSiire_id() %>"><%= siire.getSiire_name() %></option>
+		<option value="<%= s.getSiire_id() %>"><%= s.getSiire_name() %></option>
 <%
+		}
+	}else{
+		for(SiireBean s : siire_list){
+			if(s.getSiire_id().equals(siire)){
+%>
+				<option value="<%= s.getSiire_id() %>" selected="selected"><%= s.getSiire_name() %></option>
+<%
+			}else{
+%>
+			 	<option value="<%= s.getSiire_id() %>"><%= s.getSiire_name() %></option>
+<%
+			}
+		}
 	}
 %>
 </select>
@@ -44,23 +62,45 @@ ArrayList<SiireBean> siire_list = (ArrayList<SiireBean>)session.getAttribute("si
    <th id="border" class="color" width="100">安全在庫数</th>
    <th id="border" class="color" width="40">数量</th>
 </tr>
-<%
-	for(SyouhinBean syohinBean : syohin){
+<%	if(count_arr == null){
+		for(SyouhinBean syohinBean : syohin){
 %>
-	<tr id="border">
-		<td align="center" id="border"><%= syohinBean.getS_id() %></td>
-		<td id="border"><%= syohinBean.getS_name() %></td>
-		<td id="border"><%= syohinBean.getC_id() %></td>
-		<td align="right" id="border"><%= syohinBean.getBaseprice() %></td>
-		<td align="right" id="border"><%= syohinBean.getHtanka() %></td>
-		<td align="right" id="border"><%= syohinBean.getSafezaiko() %></td>
-		<td id="border">
-		<input type="text" name="count" size="2"maxlength="3">
-		<input id="border" type="hidden" name="s_id" value="<%= syohinBean.getS_id() %>">
-		<input id="border" type="hidden" name="s_basePrice" value="<%= syohinBean.getBaseprice() %>">
-		</td>
-	</tr>
+		<tr id="border">
+			<td align="center" id="border"><%= syohinBean.getS_id() %></td>
+			<td id="border"><%= syohinBean.getS_name() %></td>
+			<td id="border"><%= syohinBean.getC_id() %></td>
+			<td align="right" id="border"><%= syohinBean.getBaseprice() %></td>
+			<td align="right" id="border"><%= syohinBean.getHtanka() %></td>
+			<td align="right" id="border"><%= syohinBean.getSafezaiko() %></td>
+			<td id="border">
+			<input type="number" name="count" size="2"maxlength="3" required>
+			<input id="border" type="hidden" name="s_id" value="<%= syohinBean.getS_id() %>">
+			<input id="border" type="hidden" name="s_basePrice" value="<%= syohinBean.getBaseprice() %>">
+			</td>
+		</tr>
 <%
+		}
+	}else{
+
+		int i = 0;
+		for(SyouhinBean syohinBean : syohin){
+%>
+		<tr id="border">
+			<td align="center" id="border"><%= syohinBean.getS_id() %></td>
+			<td id="border"><%= syohinBean.getS_name() %></td>
+			<td id="border"><%= syohinBean.getC_id() %></td>
+		    <td align="right" id="border"><%= syohinBean.getBaseprice() %></td>
+			<td align="right" id="border"><%= syohinBean.getHtanka() %></td>
+			<td align="right" id="border"><%= syohinBean.getSafezaiko() %></td>
+			<td id="border">
+			<input type="number" name="count" size="2"maxlength="3" value="<%= count_arr[i] %>" required>
+			<input id="border" type="hidden" name="s_id" value="<%= syohinBean.getS_id() %>">
+			<input id="border" type="hidden" name="s_basePrice" value="<%= syohinBean.getBaseprice() %>">
+			</td>
+		</tr>
+<%
+		i++;
+		}
 	}
 %>
 </table>

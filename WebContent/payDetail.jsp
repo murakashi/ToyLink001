@@ -15,7 +15,7 @@ function nyukin(){
 
 	if (!isDate(setDate.value,"/")){
 		if (!isDate(setDate.value,"-")){
-			alert("日付エラー");
+			alert("入金日を入力してください");
 			return false;
 		}
 	}
@@ -99,7 +99,7 @@ function isDate (str, delim) {
 				</table>
 				<br> <h4>支払総金額<%=session.getAttribute("sum")%>円</h4>
 
-				入金日<input type="text" class="text" name="pay_date" id="pay_date">
+				入金日<input type="date" class="text" name="pay_date" id="pay_date" required>
 				<input type="hidden" name="o_id" value="<%=pay_list.get(0).getO_id()%>">
 				<br> <br>
 				<button class="buttonA" onclick="return nyukin();">支払</button>
