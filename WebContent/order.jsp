@@ -47,6 +47,8 @@ $(function() {
 <div id="wrapper">
 <% ArrayList<SyouhinBean> syohin = (ArrayList<SyouhinBean>)session.getAttribute("syohin");
    ArrayList<CategoryBean> category = (ArrayList<CategoryBean>)session.getAttribute("category");
+   String name = (String)session.getAttribute("s_name");
+   String c_id = (String)session.getAttribute("c_id");
 %>
 <div class="controls">
 <form action="Menu" method="Post">
@@ -61,13 +63,49 @@ $(function() {
 <form action="OrderSearch" method="post">
 <ul>
 <li>
-<label>商品名&emsp;：</label><input type="text" class="text" name="s_name"></li>
+<label>商品名&emsp;：</label>
+<%
+	   if(name == null || name.equals("")){
+%>
+	   		<input type="text" class="text" name="s_name">
+<%
+	   }else{
+%>
+   			<input type="text" class="text" name="s_name" value="<%= name %>">
+<%
+	   }
+%>
+</li>
 カテゴリ：
 <select name="category">
+<%
+	if(c_id == null || c_id.equals("未選択")){
+%>
+			<option value="未選択" selected="selected">未選択</option>
+<%
+            for(CategoryBean c : category){
+
+%>
+			<option value="<%= c.getCategoryid() %>"><%= c.getC_name() %></option>
+<%
+            }
+	}else{
+%>
 			<option value="未選択">未選択</option>
-			<% for(int i=0;i<category.size();i++){ %>
-			<option value="<%= category.get(i).getCategoryid() %>"><%= category.get(i).getC_name() %></option>
-			<% } %>
+<%
+	        for(CategoryBean c : category){
+	        	if(c.getCategoryid().equals(c_id)){
+%>
+	        		<option value="<%= c.getCategoryid() %>" selected="selected"><%= c.getC_name() %></option>
+<%
+	        	}else{
+%>
+					<option value="<%= c.getCategoryid() %>"><%= c.getC_name() %></option>
+<%
+	        	}
+	        }
+	}
+%>
 		</select>
 	</ul>
 <br>

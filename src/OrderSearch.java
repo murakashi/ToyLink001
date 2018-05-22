@@ -68,9 +68,14 @@ public class OrderSearch extends HttpServlet {
 
 		category = db.select_Category();
 
-		session.setAttribute("category", category);
+		session.setAttribute("category", category);//検索結果を格納
 
-		session.setAttribute("syohin", syohin);
+		session.setAttribute("syohin", syohin);//カテゴリの情報を格納
+
+		/******************検索結果の入力フォームに使う用***********************/
+		session.setAttribute("s_name", s_name);//商品名の入力情報を結果に格納
+
+		session.setAttribute("c_id", c_id);//カテゴリ名の入力情報を結果に格納
 
 
 		RequestDispatcher rd = request.getRequestDispatcher("order.jsp");
