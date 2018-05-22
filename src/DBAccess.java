@@ -1,7 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,13 +14,13 @@ import bean.SyouhinBean;
 public class DBAccess {
 
 	/***********SQLServer用↓***********************************/
-	/*String sql;
+	String sql;
 
-	Connection objCon;*/
+	Connection objCon;
 	/**********↑SQLServer用***********************************/
 
 	/**************postgreSQL用↓****************************/
-	String url = "jdbc:postgresql://localhost:5432/kashi";
+	/*String url = "jdbc:postgresql://localhost:5432/kashi";
 	String user = "postgres";
 	String pass = "kashi1203";
 	String sql;
@@ -41,11 +40,11 @@ public class DBAccess {
 		}catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	/**************↑postgreSQL用***************************************/
 
 	/************SQLServer用↓*******************************************/
-	/*public DBAccess() {
+	public DBAccess() {
 		try {
 			//JDBCドライバを設定する
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -61,7 +60,7 @@ public class DBAccess {
 			System.err.println(objEx.getClass().getName() + ":" + objEx.getMessage());
 			System.out.println(sql);
 		}
-	}*/
+	}
 	/***********↑SQLServer用************************************************/
 
 	/******************ログインする**************************/
@@ -442,10 +441,10 @@ public class DBAccess {
 	public int insert_Order(int max_id,String s_id,String siire_id,String count,String price) {
 
 		//SQLServer用
-		//sql = "insert into 発注 values("+ max_id +","+ s_id +",'"+ siire_id +"',"+ count +","+price+",GETDATE(),'0')";
+		sql = "insert into 発注 values("+ max_id +","+ s_id +",'"+ siire_id +"',"+ count +","+price+",GETDATE(),'0')";
 
 		//postgres用↓
-		sql = "insert into 発注 values("+ max_id +","+ s_id +",'"+ siire_id +"',"+ count +","+price+",(select current_date),'0')";
+		//sql = "insert into 発注 values("+ max_id +","+ s_id +",'"+ siire_id +"',"+ count +","+price+",(select current_date),'0')";
 
 		//selectした結果を格納する用
 		int result=0;
