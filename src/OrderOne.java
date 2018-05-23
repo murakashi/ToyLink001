@@ -47,8 +47,6 @@ public class OrderOne extends HttpServlet {
 
 		ArrayList<SyouhinBean> syohin = (ArrayList<SyouhinBean>)session.getAttribute("syohin");
 
-		//session.setAttribute("syohin", syohin);
-
 		RequestDispatcher rd = request.getRequestDispatcher("order.jsp");
 
 		rd.forward(request, response);

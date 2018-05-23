@@ -56,6 +56,7 @@ public class Menu extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
+		/************セッションあったら切る********************/
 		if(session.getAttribute("s_name") != null) {
 			session.removeAttribute("s_name");
 		}
@@ -63,6 +64,23 @@ public class Menu extends HttpServlet {
 		if(session.getAttribute("c_id") != null) {
 			session.removeAttribute("c_id");
 		}
+
+		if(session.getAttribute("message") != null) {
+			session.removeAttribute("message");
+		}
+
+		if(session.getAttribute("siire_tanka") != null) {
+			session.removeAttribute("siire_tanka");
+		}
+
+		if(session.getAttribute("h_tanka") != null) {
+			session.removeAttribute("h_tanka");
+		}
+
+		if(session.getAttribute("safe_zaiko") != null) {
+			session.removeAttribute("safe_zaiko");
+		}
+
 
 		doGet(request, response);
 	}

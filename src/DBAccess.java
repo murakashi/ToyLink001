@@ -218,6 +218,31 @@ public class DBAccess {
 		return category_list;
 	}
 
+	/*****************カテゴリIDをもとにカテゴリ名を取得する（新規商品の追加内容確認で使う）**************************/
+	public String select_Cname(String c_id) {
+
+		sql = "select カテゴリ名 from カテゴリマスタ where カテゴリID = '"+ c_id +"'";
+
+		//selectした結果を格納する用
+		String c_name = null;
+
+		try {
+			Statement stmt = objCon.createStatement();
+
+			ResultSet rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				c_name = rs.getString("カテゴリ名");
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception objEx) {
+			//コンソールに「接続エラー内容」を表示
+			System.err.println(objEx.getClass().getName() + ":" + objEx.getMessage());
+		}
+		return c_name;
+	}
+
 	/******************仕入先マスタから全件セレクトする（発注に送る）**************************/
 	public ArrayList<SiireBean> select_Siire() {
 
@@ -1618,4 +1643,54 @@ public class DBAccess {
 	}
 
 	/***********************佐藤君追加分***************************/
+
+	/*************商品変更に使用する*******************/
+	public void update_Syohin(SyouhinBean syohin,String category) {
+
+		sql = "update 商品マスタ set"
+				+ " 商品名 = '"+ syohin.getS_name() +"',"
+				+ " カテゴリID = '"+ category +"',"
+				+ " 仕入基準単価 = '"+ syohin.getBaseprice() +"',"
+				+ " 販売単価 = '"+ syohin.getHtanka() +"',"
+				+ " 安全在庫数 = '"+ syohin.getSafezaiko() +"'"
+				+ " where 商品ID = " + syohin.getS_id();
+
+		try {
+			Statement stmt = objCon.createStatement();
+
+			stmt.executeUpdate(sql);
+
+			stmt.close();
+		} catch (Exception objEx) {
+			//コンソールに「接続エラー内容」を表示
+			System.err.println(objEx.getClass().getName() + ":" + objEx.getMessage());
+		}
+	}
+
+
+
+	public String select_CategoryID(String name) {
+
+		sql = "select * from カテゴリマスタ where カテゴリ名 = '"+ name +"'";
+
+		//selectした結果を格納する用
+		String c_id =  "";
+
+		try {
+			Statement stmt = objCon.createStatement();
+
+			ResultSet rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+
+				c_id = rs.getString("カテゴリID");
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception objEx) {
+			//コンソールに「接続エラー内容」を表示
+			System.err.println(objEx.getClass().getName() + ":" + objEx.getMessage());
+		}
+		return c_id;
+	}
 }

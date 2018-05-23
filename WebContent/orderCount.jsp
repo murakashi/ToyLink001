@@ -73,7 +73,7 @@
 			<td align="right" id="border"><%= syohinBean.getHtanka() %></td>
 			<td align="right" id="border"><%= syohinBean.getSafezaiko() %></td>
 			<td id="border">
-			<input type="number" name="count" size="2"maxlength="3" required>
+			<input type="number" name="count" size="2"maxlength="3" min="1" required>
 			<input id="border" type="hidden" name="s_id" value="<%= syohinBean.getS_id() %>">
 			<input id="border" type="hidden" name="s_basePrice" value="<%= syohinBean.getBaseprice() %>">
 			</td>

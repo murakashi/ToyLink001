@@ -139,7 +139,7 @@
 					<td id="border"><div align="right"><%=syouhinlist.get(i).getBaseprice()%></div></td>
 					<td id="border"><div align="right"><%=syouhinlist.get(i).getHtanka()%></div></td>
 					<td id="border"><div align="right"><%=syouhinlist.get(i).getSafezaiko()%></div></td>
-					<td id="border"><form action="" method="post">
+					<td id="border"><form action="Syohin" method="post">
 							<button class="buttonA" name="updatebtn"
 								value="<%=syouhinlist.get(i).getS_id()%>">変更</button>
 						</form></td>

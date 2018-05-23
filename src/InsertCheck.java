@@ -56,12 +56,19 @@ public class InsertCheck extends HttpServlet {
 
 		String safe_zaiko = request.getParameter("safe_zaiko");
 
+		/**************追加確認画面でキャンセルボタンを押したときの値保持のため*******/
 		session.setAttribute("s_id", s_id);
 		session.setAttribute("s_name", s_name);
-		session.setAttribute("category", category);
+		session.setAttribute("c_id", category);
 		session.setAttribute("siire_tanka", siire_tanka);
 		session.setAttribute("h_tanka", h_tanka);
 		session.setAttribute("safe_zaiko", safe_zaiko);
+
+		DBAccess db = new DBAccess();
+
+		String c_name = db.select_Cname(category);
+
+		session.setAttribute("c_name", c_name);
 
 		rd = request.getRequestDispatcher("insertCheck.jsp");
 
