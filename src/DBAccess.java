@@ -1481,12 +1481,12 @@ public class DBAccess {
 
 	public ArrayList<SyouhinBean> SyohinList_CategorySearch(String category) {
 
-		sql = "select 商品ID,商品名,カテゴリマスタ.カテゴリ名,商品マスタ.仕入基準単価,販売単価 " +
+		sql = "select 商品ID,商品名,カテゴリマスタ.カテゴリ名,商品マスタ.仕入基準単価,販売単価,安全在庫数 " +
 				"from 商品マスタ inner join カテゴリマスタ " +
 				"on 商品マスタ.カテゴリID = カテゴリマスタ.カテゴリID " +
 				"where 削除フラグ = '0' " +
 				"and カテゴリマスタ.カテゴリID = '" + category +"' "+
-				"group by 商品ID,商品名,カテゴリ名,仕入基準単価,販売単価 " +
+				"group by 商品ID,商品名,カテゴリ名,仕入基準単価,販売単価,安全在庫数 " +
 				"order by 商品ID";
 
 		//selectした結果を格納する用
@@ -1504,6 +1504,7 @@ public class DBAccess {
 				syohin.setC_id(rs.getString("カテゴリ名"));
 				syohin.setBaseprice(rs.getInt("仕入基準単価"));
 				syohin.setHtanka(rs.getInt("販売単価"));
+				syohin.setSafezaiko(rs.getInt("安全在庫数"));
 				syohin_list.add(syohin);//配列をArrayListに詰める
 			}
 			rs.close();
@@ -1520,12 +1521,12 @@ public class DBAccess {
 
 
 
-		sql = "select 商品ID,商品名,カテゴリ名,商品マスタ.仕入基準単価,販売単価 " +
+		sql = "select 商品ID,商品名,カテゴリ名,商品マスタ.仕入基準単価,販売単価,安全在庫数 " +
 				"from 商品マスタ inner join カテゴリマスタ " +
 				"on 商品マスタ.カテゴリID = カテゴリマスタ.カテゴリID " +
 				"where 削除フラグ = '0' " +
 				"and 商品名 LIKE '%" + 	syouhinname +"%' "+
-				"group by 商品ID,商品名,カテゴリ名,仕入基準単価,販売単価 " +
+				"group by 商品ID,商品名,カテゴリ名,仕入基準単価,販売単価,安全在庫数 " +
 				"order by 商品ID";
 
 
@@ -1544,6 +1545,7 @@ public class DBAccess {
 				syohin.setC_id(rs.getString("カテゴリ名"));
 				syohin.setBaseprice(rs.getInt("仕入基準単価"));
 				syohin.setHtanka(rs.getInt("販売単価"));
+				syohin.setSafezaiko(rs.getInt("安全在庫数"));
 				syohin_list.add(syohin);//配列をArrayListに詰める
 			}
 			rs.close();
@@ -1557,13 +1559,13 @@ public class DBAccess {
 
 	public ArrayList<SyouhinBean> SyohinList_Name_Category_Search(String syouhinname, String category) {
 
-		sql = "select 商品ID,商品名,カテゴリ名,商品マスタ.仕入基準単価,販売単価 " +
+		sql = "select 商品ID,商品名,カテゴリ名,商品マスタ.仕入基準単価,販売単価,安全在庫数 " +
 				"from 商品マスタ inner join カテゴリマスタ " +
 				"on 商品マスタ.カテゴリID = カテゴリマスタ.カテゴリID " +
 				"where 削除フラグ = '0' " +
 				"and 商品名 LIKE '%" + 	syouhinname +"%' "+
 				"and カテゴリマスタ.カテゴリID = '" + 	category +"' "+
-				"group by 商品ID,商品名,カテゴリ名,仕入基準単価,販売単価 " +
+				"group by 商品ID,商品名,カテゴリ名,仕入基準単価,販売単価,安全在庫数 " +
 				"order by 商品ID";
 
 
@@ -1582,6 +1584,7 @@ public class DBAccess {
 				syohin.setC_id(rs.getString("カテゴリ名"));
 				syohin.setBaseprice(rs.getInt("仕入基準単価"));
 				syohin.setHtanka(rs.getInt("販売単価"));
+				syohin.setSafezaiko(rs.getInt("安全在庫数"));
 				syohin_list.add(syohin);//配列をArrayListに詰める
 			}
 			rs.close();

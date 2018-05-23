@@ -105,7 +105,6 @@
 %>
 </table>
 
-
 <p><button class="buttonA" value="発注">発注</button><br></p>
 </form>
 <form action="Order" method="Post">

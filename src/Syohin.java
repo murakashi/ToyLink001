@@ -86,13 +86,11 @@ public class Syohin extends HttpServlet {
 			else if(bname.equals("検索")) {
 				ArrayList<SyouhinBean> syouhinlist = new ArrayList<SyouhinBean>();
 
-				String syouhin = (String)request.getParameter("syouhin");
+				String syouhin = (String)request.getParameter("s_name");
 				String category = (String)request.getParameter("category");
-				
+
 				/*****************エラーメッセージのセッションあったら切る***********/
-				if(session.getAttribute("message") != null) {
-					session.removeAttribute("message");
-				}
+				session.setAttribute("message", "");
 
 				/*****検索条件の保持のため************/
 				session.setAttribute("s_name", syouhin);
@@ -100,7 +98,7 @@ public class Syohin extends HttpServlet {
 
 				if (syouhin != null && syouhin.length() != 0) {
 					if(syouhin.getBytes("UTF-8").length <= 50) {
-						if(category != null && category.length() != 0) {
+						if(!(category.equals("未選択"))) {
 
 							ArrayList<SyouhinBean> searchresult = dba.SyohinList_Name_Category_Search(syouhin,category);
 							session.setAttribute("syouhinlist", searchresult);
@@ -117,7 +115,7 @@ public class Syohin extends HttpServlet {
 					}
 
 				}
-				else if (category != null && category.length() != 0) {
+				else if (!(category.equals("未選択"))) {
 					ArrayList<SyouhinBean> searchresult = dba.SyohinList_CategorySearch(category);
 					session.setAttribute("syouhinlist", searchresult);
 					session.setAttribute("error", "");
