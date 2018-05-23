@@ -44,20 +44,24 @@ public class UriageSearch extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-		String name=request.getParameter("syouhinName");
+		String s_name=request.getParameter("syouhinName");
 		String category=request.getParameter("category");
 
 
 		DBAccess db=new DBAccess();
-		if(name=="" && category=="") {
+		if(s_name.equals("") && category.equals("未選択")) {
 
 			request.getRequestDispatcher("Uriage")
 			.forward(request, response);
 
 		}else {
 
-		ArrayList<String[]> n = db.UriageSerch(name,category);
+		ArrayList<String[]> n = db.UriageSerch(s_name,category);
 		session.setAttribute("URIAGE", n);
+
+		session.setAttribute("c_id", category);//カテゴリの情報を格納
+
+		session.setAttribute("s_name", s_name);
 
 		request.getRequestDispatcher("uriage.jsp")
 		.forward(request, response);

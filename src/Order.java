@@ -48,7 +48,11 @@ public class Order extends HttpServlet {
 
 		DBAccess db = new DBAccess();
 
-		ArrayList<SyouhinBean> syohin = db.select_AllSyohin();
+		//String s_id = (String)session.getAttribute("s_id");/**新規追加からの発注の流れのためのもの*/
+
+		ArrayList<SyouhinBean> syohin = new ArrayList<SyouhinBean>();
+
+		syohin = db.select_AllSyohin();
 
 		session.setAttribute("syohin", syohin);
 

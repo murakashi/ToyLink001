@@ -44,7 +44,7 @@
 <body>
 	<div id="wrapper">
 		<div class="controls">
-			<form action="Menu" method="post">
+			<form action="ZaikoSearch" method="post">
 				<button class="buttonA" name="bname" value="メニュー">メニュー</button>
 			</form>
 		</div>
@@ -53,25 +53,57 @@
 		</center>
 		<br>
 		<%
-			ArrayList<SyouhinBean> syouhinlist = (ArrayList<SyouhinBean>) session.getAttribute("syouhinlist");
+			ArrayList<SyouhinBean> syohinlist = (ArrayList<SyouhinBean>) session.getAttribute("syohinlist");
 			String orderid = (String) session.getAttribute("orderid");
 			ArrayList<CategoryBean> categorylist = (ArrayList<CategoryBean>) session.getAttribute("categorylist");
+
+			String s_name = (String)session.getAttribute("s_name");
+			String c_id = (String)session.getAttribute("c_id");
 		%>
 		<center>検索条件</center>
 		<form action="ZaikoSearch" method="post">
 			<ul>
-				<li><label>商品名&emsp;：</label> <input type="text" class="text"
-					name="syouhin"> <br></li>
+				<%
+				if(s_name != null){
+				%>
+					<li><label>商品名&emsp;：</label> <input type="text" class="text"
+						name="syouhin" value="<%= s_name %>"> <br></li>
+				<%
+				}
+				else{
+				%>
+					<li><label>商品名&emsp;：</label> <input type="text" class="text"
+						name="syouhin"> <br></li>
+				<%}%>
 				<li><label>カテゴリ：</label> <select name="category">
-						<option selected="selected" value=""></option>
-						<%
-							for (int i = 0; i < categorylist.size(); i++) {
-						%>
-						<option value="<%=categorylist.get(i).getCategoryid()%>">
-							<%=categorylist.get(i).getC_name()%></option>
-						<%
-							}
-						%>
+<%
+			if(c_id == null || c_id.equals("未選択")){
+%>
+			<option value="未選択" selected="selected">未選択</option>
+<%
+            	for(CategoryBean c : categorylist){
+
+%>
+				<option value="<%= c.getCategoryid() %>"><%= c.getC_name() %></option>
+<%
+            	}
+			}else{
+%>
+			<option value="未選択">未選択</option>
+<%
+	        for(CategoryBean c : categorylist){
+	        	if(c.getCategoryid().equals(c_id)){
+%>
+	        		<option value="<%= c.getCategoryid() %>" selected="selected"><%= c.getC_name() %></option>
+<%
+	        	}else{
+%>
+					<option value="<%= c.getCategoryid() %>"><%= c.getC_name() %></option>
+<%
+	        	}
+	        }
+	}
+%>
 				</select></li>
 			</ul>
 			<center>
@@ -101,16 +133,16 @@
 			</tr>
 			<%
 				int id = 0;
-				for (int i = 0; i < syouhinlist.size(); i++) {
+				for (int i = 0; i < syohinlist.size(); i++) {
 			%>
 			<tr id="border">
-				<td id="border"><div align="center"><%=syouhinlist.get(i).getS_id()%></div></td>
-				<td id="border"><%=syouhinlist.get(i).getS_name()%></td>
-				<td id="border"><div align="right"><%=syouhinlist.get(i).getSafezaiko()%></div></td>
-				<td id="border"><div align="right"><%=syouhinlist.get(i).getZaiko()%></div></td>
+				<td id="border"><div align="center"><%=syohinlist.get(i).getS_id()%></div></td>
+				<td id="border"><%=syohinlist.get(i).getS_name()%></td>
+				<td id="border"><div align="right"><%=syohinlist.get(i).getSafezaiko()%></div></td>
+				<td id="border"><div align="right"><%=syohinlist.get(i).getZaiko()%></div></td>
 				<td id="border"><form action="ZaikoSearch" method="post">
 						<button class="buttonA" name="order"
-							value="<%=syouhinlist.get(i).getS_id()%>">発注</button>
+							value="<%=syohinlist.get(i).getS_id()%>">発注</button>
 					</form></td>
 			</tr>
 			<%

@@ -74,24 +74,26 @@ p.example2 {
 #border { /*枠線を表示する*/
 	border: 1px #AAAAAA solid;
 	border-collapse: collapse;
+	height:55px;
 }
 
 .controls {
 	/*メニューボタンの配置*/
-	position: relative;
-	left: 650px;
+	float:right;
+}
+
+center {
+	clear: both;
 }
 
 .ButtonSet {
 	/*売上画面の月間、年間売上ボタンに使用*/
-	position: relative;
-	left: 550px;
+	
 }
 
 .ButtonSet2 {
 	/*月間、年間売上画面の戻るボタンに使用*/
-	position: relative;
-	left: 750px;
+	
 }
 
 /*ボタンデザイン例*/
@@ -205,39 +207,46 @@ ul {
   background-color: #ECECEC;  
 }  
 
+#Enclose {
+	margin: 0 auto;
+	margin-top: 100px;
+	padding: 20px;
+	width: 480px;
+	height: 450px;
+
+	/*
+	background: -webkit-repeating-linear-gradient(-45deg, #f5edfd, #f5edfd 5px, #fdfcff 5px, #fdfcff 10px);
+    background: repeating-linear-gradient(-45deg, #f5edfd, #f5edfd 5px, #fdfcff 5px, #fdfcff 10px);
+    color: #4a1086;
+    margin: 2em 0;
+    padding: 2em;
+	border: 4px double #777777*/
+
+	/*二重線枠*/
+	border: 4px double #777777;
+    margin: 2em 0;
+    padding: 2em;
+
+	/*一本線の枠線/*
+	/*border: #ECECEC solid 3px;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	padding: 20px;
+	font-size: 90%;*/
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.mybox{
-    background-color: #7fffd4;
-    border-radius: 5px;
-    padding: 20px;
-    position: relative;
-    z-index: 0;
 }
-.mybox:before{
-    border-radius: 5px;
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    margin: 4px;
-    z-index: -1;
+
+#Enclose2{
+	margin: 0 auto;
+	margin-top: 100px;
+	padding: 20px;
+	width: 480px;
+	height: 200px;
+
+	/*二重線枠*/
+	border: 4px double #777777;
+    margin: 2em 0;
+    padding: 2em;
 }

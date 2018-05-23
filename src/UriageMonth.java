@@ -43,6 +43,16 @@ public class UriageMonth extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 
+		HttpSession session = request.getSession();
+
+		if(session.getAttribute("s_name") != null) {
+			session.removeAttribute("s_name");
+		}
+
+		if(session.getAttribute("c_id") != null) {
+			session.removeAttribute("c_id");
+		}
+
 		DBAccess dba = new DBAccess();
 
 		String bname = (String)request.getParameter("bname");
@@ -53,7 +63,6 @@ public class UriageMonth extends HttpServlet {
 			if(yearstr != null && yearstr.length() != 0) {
 				ArrayList<String[]> uriagelist = dba.getUriageMonthData(yearstr);
 
-				HttpSession session = request.getSession();
 				SelectYearBean years = new SelectYearBean();
 
 				int startyear = dba.getStartYear();
@@ -76,7 +85,6 @@ public class UriageMonth extends HttpServlet {
 			else {
 				ArrayList<String[]> uriagelist = dba.getUriageMonthData();
 
-				HttpSession session = request.getSession();
 				SelectYearBean years = new SelectYearBean();
 
 				int startyear = dba.getStartYear();
@@ -98,7 +106,7 @@ public class UriageMonth extends HttpServlet {
 			}
 		}
 		else if (bname.equals("戻る")) {
-			HttpSession session = request.getSession(false);
+			//HttpSession session = request.getSession(false);
 			if(session.getAttribute("yearslist") != null) {
 				session.removeAttribute("yearslist");
 			}

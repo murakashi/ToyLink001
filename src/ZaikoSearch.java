@@ -53,14 +53,20 @@ public class ZaikoSearch extends HttpServlet {
 			if(dflg != null) {
 				ArrayList<SyouhinBean> syouhinlist = new ArrayList<SyouhinBean>();
 				syouhinlist = dba.select_DengerSyohin();
-				session.setAttribute("syouhinlist", syouhinlist);
+				session.setAttribute("syohinlist", syouhinlist);
 				request.getRequestDispatcher("zaiko.jsp").forward(request, response);
 			}
 			else {
 				if(bname.equals("メニュー")) {
-					if(session != null && session.getAttribute("searchlist") != null) {
-						session.removeAttribute("searchlist");
-					}
+
+					//(session != null) {
+						if (session.getAttribute("s_name") != null) {
+							session.removeAttribute("s_name");
+						}
+						if (session.getAttribute("c_id") != null) {
+							session.removeAttribute("c_id");
+						}
+					//}
 					request.getRequestDispatcher("menu.jsp").forward(request, response);
 				}
 				else if (bname.equals("検索")) {
@@ -68,18 +74,20 @@ public class ZaikoSearch extends HttpServlet {
 
 					String syouhin = (String)request.getParameter("syouhin");
 					String category = (String)request.getParameter("category");
+					session.setAttribute("s_name", syouhin);
+					session.setAttribute("c_id", category);
 
 					if (syouhin != null && syouhin.length() != 0) {
 						if(syouhin.getBytes("UTF-8").length <= 50) {
-							if(category != null && category.length() != 0) {
+							if(!(category.equals("未選択")) && category.length() != 0) {
 
 								ArrayList<SyouhinBean> searchresult = dba.select_Syohin_Category(syouhin,category);
-								session.setAttribute("syouhinlist", searchresult);
+								session.setAttribute("syohinlist", searchresult);
 								session.setAttribute("error", "");
 							}
 							else {
 								ArrayList<SyouhinBean> searchresult = dba.select_Multi_Syohin(syouhin);
-								session.setAttribute("syouhinlist", searchresult);
+								session.setAttribute("syohinlist", searchresult);
 								session.setAttribute("error", "");
 							}
 						}
@@ -88,14 +96,14 @@ public class ZaikoSearch extends HttpServlet {
 						}
 
 					}
-					else if (category != null && category.length() != 0) {
+					else if (!(category.equals("未選択"))) {
 						ArrayList<SyouhinBean> searchresult = dba.select_Category(category);
-						session.setAttribute("syouhinlist", searchresult);
+						session.setAttribute("syohinlist", searchresult);
 						session.setAttribute("error", "");
 					}
 					else {
-						syouhinlist = dba.select_AllSyohin();
-						session.setAttribute("syouhinlist", syouhinlist);
+						syouhinlist = dba.select_AllZaiko();
+						session.setAttribute("syohinlist", syouhinlist);
 					}
 					request.getRequestDispatcher("zaiko.jsp").forward(request, response);
 

@@ -28,7 +28,7 @@
 <td>
 商品ID</td>
 <td>
-&emsp;<input type = "text" class = "text" name = "syouID">
+&emsp;<input type = "number" class = "text" name = "syouID" required>
 </td>
 </tr>
 <tr>
@@ -36,20 +36,20 @@
 <p/>
 売上日</td>
 <td>
-&emsp;<input type = "text" class = "text" name = "day"></td>
+&emsp;<input type = "date" class = "text" name = "day" required></td>
 </tr>
 <tr>
 <td>
 売上数</td>
 <td>
-&emsp;<input type = "text" class = "text" name = "salNum">
+&emsp;<input type = "number" class = "text" name = "salNum" required>
 </td>
 <tr>
 <td>
 <p/>
 販売単価</td>
 <td>
-&emsp;<input type = "text" class = "text" name = "tanka">
+&emsp;<input type = "number" class = "text" name = "tanka" required>
 </td>
 <tr>
 <td>

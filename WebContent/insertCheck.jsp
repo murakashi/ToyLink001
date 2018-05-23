@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"type="text/css"href="styles.css">
-<title>Insert title here</title>
+<title>新商品追加内容確認</title>
 </head>
 <body>
 <center>

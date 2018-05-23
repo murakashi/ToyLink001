@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -40,7 +39,6 @@ public class OrderFinish extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-
 		HttpSession sesion = request.getSession();
 
 		String siire_id = (String)sesion.getAttribute("siire_id");//仕入先ID取得
@@ -59,6 +57,11 @@ public class OrderFinish extends HttpServlet {
 		for(int i=0;i<id_arr.length;i++) {
 			db.insert_Order(max_id,id_arr[i],siire_id,count_arr[i],price_arr[i]);//伝ID,商品ID,仕入先ID,数量,仕入単価渡す
 		}
+
+		/*********検索条件の入力値のセッションを切る***********/
+		sesion.removeAttribute("s_name");
+
+		sesion.removeAttribute("category");
 
 		RequestDispatcher rd = request.getRequestDispatcher("orderFinish.jsp");
 

@@ -46,10 +46,15 @@
 </tr>
 
 <tr>
+<td><form action="Syohin" method="post">
+<input href="#" class="square_btn" type="submit" value="商品一覧" name="bname"></td>
+</form>
+
 <td><form action="NewSyohin" method="post">
 <input href="#" class="square_btn" type="submit" value="新規商品追加"></td>
 </form>
 </tr>
+
 </table>
 </center>
 </body>

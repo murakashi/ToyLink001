@@ -38,8 +38,10 @@ public class Menu extends HttpServlet {
         DBAccess db = new DBAccess();
         ArrayList<SyouhinBean> zaiko = db.select_SyohinA();
 
-        if(!zaiko.equals(null)) {
-        session.setAttribute("zaiko00","安全在庫数を下回っている商品があります。確認してください。");
+        if(zaiko.size() > 0) {
+        	session.setAttribute("zaiko00","安全在庫数を下回っている商品があります。確認してください。");
+        }else {
+        	session.setAttribute("zaiko00","");
         }
 
 		 request.getRequestDispatcher("menu.jsp")
@@ -52,6 +54,15 @@ public class Menu extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+
+		if(session.getAttribute("s_name") != null) {
+			session.removeAttribute("s_name");
+		}
+
+		if(session.getAttribute("c_id") != null) {
+			session.removeAttribute("c_id");
+		}
 
 		doGet(request, response);
 	}

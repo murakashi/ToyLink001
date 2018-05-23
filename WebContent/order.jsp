@@ -47,8 +47,10 @@ $(function() {
 <div id="wrapper">
 <% ArrayList<SyouhinBean> syohin = (ArrayList<SyouhinBean>)session.getAttribute("syohin");
    ArrayList<CategoryBean> category = (ArrayList<CategoryBean>)session.getAttribute("category");
+
    String name = (String)session.getAttribute("s_name");
    String c_id = (String)session.getAttribute("c_id");
+
 %>
 <div class="controls">
 <form action="Menu" method="Post">
@@ -57,57 +59,56 @@ $(function() {
 </div>
 <center>
 <h1>発注</h1>
-<h3>《検索条件》</h3>
+<h4>《検索条件》</h4>
 <p>
 
 <form action="OrderSearch" method="post">
 <ul>
-<li>
-<label>商品名&emsp;：</label>
-<%
-	   if(name == null || name.equals("")){
-%>
-	   		<input type="text" class="text" name="s_name">
-<%
-	   }else{
-%>
-   			<input type="text" class="text" name="s_name" value="<%= name %>">
-<%
-	   }
-%>
-</li>
-カテゴリ：
-<select name="category">
-<%
-	if(c_id == null || c_id.equals("未選択")){
-%>
-			<option value="未選択" selected="selected">未選択</option>
-<%
-            for(CategoryBean c : category){
+<li><label>商品名&emsp;：</label>
+ <%
+ 	   if(name == null || name.equals("")){
+ %>
+ 	   		<input type="text" class="text" name="s_name">
+ <%
+ 	   }else{
+ %>
+    			<input type="text" class="text" name="s_name" value="<%= name %>">
+ <%
+ 	   }
+ %>
+ </li>
+ カテゴリ：
+ <select name="category">
+ <%
+ 	if(c_id == null || c_id.equals("未選択")){
+ %>
+ 			<option value="未選択" selected="selected">未選択</option>
+ <%
+             for(CategoryBean c : category){
 
-%>
-			<option value="<%= c.getCategoryid() %>"><%= c.getC_name() %></option>
-<%
-            }
-	}else{
-%>
-			<option value="未選択">未選択</option>
-<%
-	        for(CategoryBean c : category){
-	        	if(c.getCategoryid().equals(c_id)){
-%>
-	        		<option value="<%= c.getCategoryid() %>" selected="selected"><%= c.getC_name() %></option>
-<%
-	        	}else{
-%>
-					<option value="<%= c.getCategoryid() %>"><%= c.getC_name() %></option>
-<%
-	        	}
-	        }
-	}
-%>
-		</select>
-	</ul>
+ %>
+ 			<option value="<%= c.getCategoryid() %>"><%= c.getC_name() %></option>
+ <%
+             }
+ 	}else{
+ %>
+ 			<option value="未選択">未選択</option>
+ <%
+ 	        for(CategoryBean c : category){
+ 	        	if(c.getCategoryid().equals(c_id)){
+ %>
+ 	        		<option value="<%= c.getCategoryid() %>" selected="selected"><%= c.getC_name() %></option>
+ <%
+ 	        	}else{
+ %>
+ 					<option value="<%= c.getCategoryid() %>"><%= c.getC_name() %></option>
+ <%
+ 	        	}
+ 	        }
+ 	}
+ %>
+ 		</select>
+ 	</ul>
 <br>
 安全在庫数が下回っている商品を表示する
 <input type="checkbox"  name="dflg" value="denger">
@@ -128,6 +129,7 @@ $(function() {
    <th id="border" width="100">カテゴリ名</th>
    <th id="border" width="120">仕入基準単価</th>
    <th id="border" width="100">販売単価</th>
+   <th id="border" width="100">安全在庫数</th>
 </tr>
 
 <%
@@ -140,6 +142,7 @@ $(function() {
 		<td id="border"><%= syohinBean.getC_id() %></td>
 		<td id="border" align="right"><%= syohinBean.getBaseprice() %></td>
 		<td id="border" align="right"><%= syohinBean.getHtanka() %></td>
+		<td id="border" align="right"><%= syohinBean.getSafezaiko() %></td>
 	</tr>
 <%
 	}

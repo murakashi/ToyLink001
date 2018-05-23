@@ -1001,7 +1001,7 @@ public class DBAccess {
 				if(!name.equals("")){
 					sql+=" and 商品名 like '%"+name+"%'";
 				}
-				if(!category.equals("")){
+				if(!category.equals("未選択")){
 					sql+=" and カテゴリID='"+category+"'";
 				}
 
@@ -1075,7 +1075,7 @@ public class DBAccess {
 	/******************商品マスタから検索条件を指定してセレクトする**************************/
 	public ArrayList<SyouhinBean> select_Single_Syohin(String s_id) {
 
-		sql = "select 在庫.商品ID,商品名,カテゴリ名,仕入基準単価,販売単価,安全在庫数,sum(在庫数) as 在庫残量 " +
+		/*sql = "select 在庫.商品ID,商品名,カテゴリ名,仕入基準単価,販売単価,安全在庫数,sum(在庫数) as 在庫残量 " +
 				"from 商品マスタ inner join カテゴリマスタ " +
 				"on 商品マスタ.カテゴリID = カテゴリマスタ.カテゴリID " +
 				"inner join 在庫 " +
@@ -1083,7 +1083,17 @@ public class DBAccess {
 				"where 削除フラグ = '0' " +
 				"and 在庫.商品ID = '"+ s_id +"' "+
 				"group by 在庫.商品ID,商品名,カテゴリ名,仕入基準単価,販売単価,安全在庫数 " +
-				"order by 在庫.商品ID";
+				"order by 在庫.商品ID";*/
+
+		sql = "select 商品マスタ.商品ID,商品名,カテゴリ名,仕入基準単価,販売単価,安全在庫数,sum(在庫数) as 在庫残量 " +
+					"from 商品マスタ inner join カテゴリマスタ " +
+					"on 商品マスタ.カテゴリID = カテゴリマスタ.カテゴリID " +
+					"left outer join 在庫 " +
+					"on 商品マスタ.商品ID = 在庫.商品ID " +
+					"where 削除フラグ = '0' " +
+					"and 商品マスタ.商品ID = '"+ s_id +"' "+
+					"group by 商品マスタ.商品ID,商品名,カテゴリ名,仕入基準単価,販売単価,安全在庫数 " +
+					"order by 商品マスタ.商品ID";
 
 		//selectした結果を格納する用
 		ArrayList<SyouhinBean>  syohin = new ArrayList<SyouhinBean>();
@@ -1405,14 +1415,14 @@ public class DBAccess {
 	}
 
 
-//	商品一覧系処理ここから
+/***************************商品一覧系処理ここから**********************************************/
+	/*******安全在庫数も取得するようにした↓************************/
 	public ArrayList<SyouhinBean> All_SyohinData() {
 
-		sql = "select 商品ID,商品名,カテゴリ名,商品マスタ.仕入基準単価,販売単価 " +
+		sql = "select 商品ID,商品名,カテゴリ名,商品マスタ.仕入基準単価,販売単価,安全在庫数 " +
 				"from 商品マスタ inner join カテゴリマスタ " +
 				"on 商品マスタ.カテゴリID = カテゴリマスタ.カテゴリID " +
 				"where 削除フラグ = '0' " +
-				"group by 商品ID,商品名,カテゴリ名,仕入基準単価,販売単価 " +
 				"order by 商品ID";
 
 
@@ -1431,6 +1441,7 @@ public class DBAccess {
 				syohin.setC_id(rs.getString("カテゴリ名"));
 				syohin.setBaseprice(rs.getInt("仕入基準単価"));
 				syohin.setHtanka(rs.getInt("販売単価"));
+				syohin.setSafezaiko(rs.getInt("安全在庫数"));
 				syohin_list.add(syohin);//配列をArrayListに詰める
 			}
 			rs.close();
@@ -1581,9 +1592,10 @@ public class DBAccess {
 		return result;
 	}
 
+	/*****************新規商品追加で使う*********************/
 	public int select_Max_Sid() {
 
-		sql = "select max(商品ID) as 最大ID from 商品マスタ";
+		sql = "select max(商品ID)+1 as 最大ID from 商品マスタ";
 
 		//selectした結果を格納する用
 		int max_Sid = 0;

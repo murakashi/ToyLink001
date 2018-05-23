@@ -53,7 +53,7 @@ public class Zaiko extends HttpServlet {
 			ArrayList<CategoryBean> categorylist = new ArrayList<CategoryBean>();
 			categorylist = dba.select_Category();
 
-			session.setAttribute("syouhinlist", syouhinlist);
+			session.setAttribute("syohinlist", syouhinlist);
 			session.setAttribute("categorylist", categorylist);
 
 			request.getRequestDispatcher("zaiko.jsp").forward(request, response);;

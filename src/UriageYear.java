@@ -45,6 +45,14 @@ public class UriageYear extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
+		if(session.getAttribute("s_name") != null) {
+			session.removeAttribute("s_name");
+		}
+
+		if(session.getAttribute("c_id") != null) {
+			session.removeAttribute("c_id");
+		}
+
 		DBAccess db=new DBAccess();
 
 		String yearstr ="1";

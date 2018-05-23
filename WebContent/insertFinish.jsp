@@ -10,9 +10,16 @@
 <body>
 <center>
 <p class="example2">商品情報を1件追加しました。</p>
-<form action="Menu" method="Post">
-<p><button class="buttonA">戻る</button></p>
+
+<h2>続けて発注を行いますか？</h2>
+<form action="Order" method="Post">
+<p><button class="buttonA">はい</button></p>
 </form>
+
+<form action="Menu" method="Post">
+<p><button class="buttonA">いいえ</button></p>
+</form>
+
 </center>
 </body>
 </html>

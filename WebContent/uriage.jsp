@@ -1,4 +1,4 @@
-<%@page import="bean.CategoryBean"%>
+﻿<%@page import="bean.CategoryBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
@@ -60,19 +60,57 @@
 			<%
 ArrayList<CategoryBean> categorylist = (ArrayList<CategoryBean>)session.getAttribute("categorylist");
 
+			   String s_name = (String)session.getAttribute("s_name");
+			   String category = (String)session.getAttribute("c_id");
+
 %>
 
 
 
 		<ul>
-			<li><label>商品名&emsp;：</label> <input type="text" class="text"
-				name="syouhinName"></li>
+			<li><label>商品名&emsp;：</label>
+			<%
+	   if(s_name == null || s_name.equals("")){
+%>
+	   		<input type="text" class="text" name="syouhinName">
+<%
+	   }else{
+%>
+   			<input type="text" class="text" name="syouhinName" value="<%= s_name %>">
+<%
+	   }
+%>
+			</li>
 				<li><label>カテゴリ：</label>
 				<select name="category">
-				<option selected="selected" value=""></option>
-				<% for(int i=0;i<categorylist.size();i++){ %>
-				<option value="<%= categorylist.get(i).getCategoryid() %>"><%= categorylist.get(i).getC_name() %></option>
-				<% } %>
+				<%
+	if(category == null || category.equals("未選択")){
+%>
+			<option value="未選択" selected="selected">未選択</option>
+<%
+            for(CategoryBean c : categorylist){
+
+%>
+			<option value="<%= c.getCategoryid() %>"><%= c.getC_name() %></option>
+<%
+            }
+	}else{
+%>
+			<option value="未選択">未選択</option>
+<%
+	        for(CategoryBean c : categorylist){
+	        	if(c.getCategoryid().equals(category)){
+%>
+	        		<option value="<%= c.getCategoryid() %>" selected="selected"><%= c.getC_name() %></option>
+<%
+	        	}else{
+%>
+					<option value="<%= c.getCategoryid() %>"><%= c.getC_name() %></option>
+<%
+	        	}
+	        }
+	}
+%>
 			</select></li>
 			</ul>
 			 <br>
@@ -86,13 +124,13 @@ ArrayList<CategoryBean> categorylist = (ArrayList<CategoryBean>)session.getAttri
 			<br> <span id="prev">前へ</span> <span id="page"></span> <span
 				id="next">次へ</span>
 
-			<table id="border" width="800px">
+			<table id="border" class = "t-line" width="800px">
 
 				<tr id="border">
 					<th id="border" width = "150px">日時</th>
 					<th id="border" width = "310px">商品名</th>
 					<th id="border" width = "100px">売上数</th>
-					<th id="border">売上金額</th>
+					<th id="border">金額</th>
 				</tr>
 
 				<%
